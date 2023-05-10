@@ -105,13 +105,6 @@ in
     };
   };
   
-  # TODO: Set your hostname
-  networking = {
-    hostName = "nixos";
-    # proxy.default = "https://user:passwd@proxy:prot/";
-    networkmanager.enable = true;
-  };
-
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;

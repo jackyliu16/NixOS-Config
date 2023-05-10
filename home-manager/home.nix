@@ -75,25 +75,25 @@ in
     (pkgs.writeScriptBin "nixFlakes" ''
       exec ${pkgs.nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
     '')
-    (vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions; [
-        bbenoist.nix
-        vscodevim.vim
-        jnoortheen.nix-ide
-        ms-vscode-remote.remote-ssh
-        davidanson.vscode-markdownlint
-        valentjn.vscode-ltex
-        donjayamanne.githistory
-        mhutchie.git-graph
-        ms-vscode.cpptools
-        # vscode-extensions.wakatime.vscode-wakatime
-        ms-python.python
-        ms-pyright.pyright
-        njpwerner.autodocstring
-      ];
-    })
-    # vscode
-    nerdfonts
+    # (vscode-with-extensions.override {
+    #   vscodeExtensions = with vscode-extensions; [
+    #     bbenoist.nix
+    #     vscodevim.vim
+    #     jnoortheen.nix-ide
+    #     ms-vscode-remote.remote-ssh
+    #     davidanson.vscode-markdownlint
+    #     valentjn.vscode-ltex
+    #     donjayamanne.githistory
+    #     mhutchie.git-graph
+    #     ms-vscode.cpptools
+    #     # vscode-extensions.wakatime.vscode-wakatime
+    #     ms-python.python
+    #     ms-pyright.pyright
+    #     njpwerner.autodocstring
+    #   ];
+    # })
+    vscode
+    # nerdfonts
     # font-awesome
     # powerline-fonts
     # Basical 

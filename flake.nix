@@ -33,13 +33,7 @@
     , ... }@inputs:
     let
       inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs [
-        "aarch64-linux"
-        "i686-linux"
-        "x86_64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
+      forAllSystems = nixpkgs.lib.genAttrs [ "aarch64-linux" "i686-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
       username = "jacky";
       hostname = "nixos";
     in
@@ -67,27 +61,31 @@
       homeManagerModules = import ./modules/home-manager;
 
       # NixOS configuration entrypoint
-      # Available through 'nixos-rebuild --flake .#your-hostname'
-      nixosConfigurations = {
+      nixosConfigurations = (
+        import ./hosts {
+          inherit nixpkgs self inputs outputs username config;
+        }
+      );
+      # nixosConfigurations = {
         # FIXME replace with your hostname
-        ${hostname} = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            # > Our main nixos configuration file <
-            nur.nixosModules.nur
-            ./nixos/configuration.nix
-            ({ pkgs, config, ... }: {
-              # nixpkgs.overlays = [ rust-overlay.overlays.default ];
-              environment.systemPackages = [ 
-                # pkgs.rust-bin.nightly.latest.default 
-                # config.nur.repos.linyinfeng.matrix-wechat
-                # config.nur.repos.xddxdd.wine-wechat
-                config.nur.repos.linyinfeng.icalingua-plus-plus
-              ];
-            })
-          ];
-        };
-      };
+      # ${hostname} = nixpkgs.lib.nixosSystem {
+      #   specialArgs = { inherit inputs outputs; };
+      #   modules = [
+      #     # > Our main nixos configuration file <
+      #     nur.nixosModules.nur
+      #     ./nixos/configuration.nix
+      #     ({ pkgs, config, ... }: {
+      #       # nixpkgs.overlays = [ rust-overlay.overlays.default ];
+      #       environment.systemPackages = [ 
+      #         # pkgs.rust-bin.nightly.latest.default 
+      #         # config.nur.repos.linyinfeng.matrix-wechat
+      #         # config.nur.repos.xddxdd.wine-wechat
+      #         config.nur.repos.linyinfeng.icalingua-plus-plus
+      #       ];
+      #     })
+      #   ];
+      # };
+      # };
 
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
